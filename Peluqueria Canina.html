@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clínica de Peluquería Canina</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
+  <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+      
+      body {
+          font-family: 'Inter', sans-serif;
+      }
+      
+      .bg-gradient {
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      }
+      
+      .card {
+          background-color: rgba(255, 255, 255, 0.1);
+          backdrop-filter: blur(10px);
+      }
+      
+      .input {
+          background-color: rgba(255, 255, 255, 0.2);
+      }
+      
+      .button {
+          transition: background-color 0.3s ease;
+      }
+      
+      .button:hover {
+          background-color: rgba(59, 130, 246, 0.8);
+      }
+
+      input[type="text"], input[type="tel"], input[type="email"], select, input[type="date"], textarea {
+          color: #333;
+          background-color: rgba(255, 255, 255, 0.8);
+      }
+      input::placeholder {
+          color: #666;
+      }
+      .flatpickr-day {
+          color: #333 !important;
+      }
+      .flatpickr-day.has-cita {
+          background-color: #4CAF50 !important;
+          border-color: #4CAF50 !important;
+          color: white !important;
+      }
+  </style>
+</head>
+<body class="min-h-screen bg-gradient text-white py-8">
+  <div class="container mx-auto px-4">
+      <header class="mb-8 text-center">
+          <h1 class="text-3xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
+              CLÍNICA DE PELUQUERÍA CANINA
+          </h1>
+          <div class="flex justify-center items-center mb-4">
+              <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/LOGO%20PELUQUERIA%20CANINA-11p7TtD70w4JjLej4j4jqQY195iz2z.png" alt="Logo Peluquería Canina" class="w-32 h-32 object-contain bg-white rounded-full p-2">
+          </div>
+      </header>
+
+      <nav class="mb-8 flex justify-center space-x-4">
+          <button id="irFormulario" class="px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+              Nueva Cita
+          </button>
+          <button id="irResumen" class="px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+              Ver Resumen de Citas
+          </button>
+          <button id="irCalendario" class="px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+              Calendario de Citas
+          </button>
+          <button id="irCitasCumplidas" class="px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+              Citas Cumplidas
+          </button>
+      </nav>
+
+      <div id="formulario" class="w-full max-w-2xl mx-auto">
+          <div class="card rounded-lg shadow-lg p-6">
+              <h2 class="text-2xl font-semibold mb-4 text-center text-white">Registro de Cita</h2>
+              <p class="text-gray-200 mb-6 text-center">Complete el formulario para agendar una cita para su mascota.</p>
+              <form id="citaForm" class="space-y-4">
+                  <div>
+                      <label for="nombreDueno" class="block text-sm font-medium text-gray-200">Nombre del Dueño</label>
+                      <input type="text" id="nombreDueno" required class="mt-1 block w-full px-3 py-2 border border-transparent rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                  </div>
+                  <div>
+                      <label for="telefono" class="block text-sm font-medium text-gray-200">Teléfono de Contacto</label>
+                      <input type="tel" id="telefono" required class="mt-1 block w-full px-3 py-2 border border-transparent rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                  </div>
+                  <div>
+                      <label for="email" class="block text-sm font-medium text-gray-200">Correo Electrónico</label>
+                      <input type="email" id="email" required class="mt-1 block w-full px-3 py-2 border border-transparent rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                  </div>
+                  <div>
+                      <label for="nombreMascota" class="block text-sm font-medium text-gray-200">Nombre de la Mascota</label>
+                      <input type="text" id="nombreMascota" required class="mt-1 block w-full px-3 py-2 border border-transparent rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                  </div>
+                  <div>
+                      <label for="raza" class="block text-sm font-medium text-gray-200">Raza</label>
+                      <input type="text" id="raza" required class="mt-1 block w-full px-3 py-2 border border-transparent rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                  </div>
+                  <div>
+                      <label for="color" class="block text-sm font-medium text-gray-200">Color</label>
+                      <input type="text" id="color" required class="mt-1 block w-full px-3 py-2 border border-transparent rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                  </div>
+                  <div>
+                      <label for="alergico" class="block text-sm font-medium text-gray-200">Alérgico</label>
+                      <select id="alergico" required class="mt-1 block w-full px-3 py-2 border border-transparent rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                          <option value="">Seleccione una opción</option>
+                          <option value="si">Sí</option>
+                          <option value="no">No</option>
+                      </select>
+                  </div>
+                  <div>
+                      <label for="atencionEspecial" class="block text-sm font-medium text-gray-200">Atención Especial</label>
+                      <select id="atencionEspecial" required class="mt-1 block w-full px-3 py-2 border border-transparent rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                          <option value="">Seleccione una opción</option>
+                          <option value="si">Sí</option>
+                          <option value="no">No</option>
+                      </select>
+                  </div>
+                  <div>
+                      <label for="servicio" class="block text-sm font-medium text-gray-200">Servicio Requerido</label>
+                      <select id="servicio" required class="mt-1 block w-full px-3 py-2 border border-transparent rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                          <option value="">Seleccione un servicio</option>
+                          <option value="bano">Baño y Secado</option>
+                          <option value="corte">Corte de Pelo</option>
+                          <option value="unas">Corte de Uñas</option>
+                          <option value="completo">Servicio Completo</option>
+                      </select>
+                  </div>
+                  <div>
+                      <label for="fechaHora" class="block text-sm font-medium text-gray-200">Fecha y Hora de la Cita</label>
+                      <input type="text" id="fechaHora" required class="mt-1 block w-full px-3 py-2 border border-transparent rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                  </div>
+                  <div>
+                      <label for="observaciones" class="block text-sm font-medium text-gray-200">Observaciones</label>
+                      <textarea id="observaciones" rows="3" class="mt-1 block w-full px-3 py-2 border border-transparent rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-800"></textarea>
+                  </div>
+                  <div class="flex space-x-4">
+                      <button type="button" id="agendar" class="flex-1 px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                          Agendar Cita
+                      </button>
+                      <button type="button" id="limpiar" class="flex-1 px-4 py-2 border border-transparent text-sm font-medium rounded-md text-blue-700 bg-blue-100 hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                          Limpiar Formulario
+                      </button>
+                  </div>
+              </form>
+          </div>
+      </div>
+
+      <div id="resumen" class="w-full max-w-4xl mx-auto hidden">
+          <div class="card rounded-lg shadow-lg p-6">
+              <h2 class="text-2xl font-semibold mb-4 text-center text-white">Citas Agendadas</h2>
+              <div id="listaCitas" class="space-y-4">
+                  <!-- Las citas se insertarán aquí -->
+              </div>
+          </div>
+      </div>
+
+      <div id="calendario" class="w-full max-w-4xl mx-auto hidden">
+          <div class="card rounded-lg shadow-lg p-6">
+              <h2 class="text-2xl font-semibold mb-4 text-center text-white">Calendario de Citas</h2>
+              <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
+                  <div id="calendarioCitas" class="flex-1"></div>
+                  <p class="text-sm text-white mb-2">Pulse en un día para visualizar las citas asignadas</p>
+                  <div id="citasDelDia" class="flex-1 bg-white/10 p-4 rounded-md">
+                      <h3 class="text-xl font-semibold mb-2 text-white">Citas del día</h3>
+                      <div id="listaCitasDelDia" class="space-y-2">
+                          <!-- Las citas del día seleccionado se insertarán aquí -->
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <div id="citasCumplidas" class="w-full max-w-4xl mx-auto hidden">
+          <div class="card rounded-lg shadow-lg p-6">
+              <h2 class="text-2xl font-semibold mb-4 text-center text-white">Citas Cumplidas</h2>
+              <div id="listaCitasCumplidas" class="space-y-4">
+                  <!-- Las citas cumplidas se insertarán aquí -->
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <script>
+      flatpickr("#fechaHora", {
+          enableTime: true,
+          dateFormat: "Y-m-d H:i",
+          minDate: "today",
+          locale: "es"
+      });
+
+      function mostrarVista(vista) {
+          document.getElementById('formulario').classList.add('hidden');
+          document.getElementById('resumen').classList.add('hidden');
+          document.getElementById('calendario').classList.add('hidden');
+          document.getElementById('citasCumplidas').classList.add('hidden');
+          document.getElementById(vista).classList.remove('hidden');
+
+          if (vista === 'resumen') {
+              cargarCitas();
+          } else if (vista === 'calendario') {
+              cargarCalendario();
+          } else if (vista === 'citasCumplidas') {
+              cargarCitasCumplidas();
+          }
+      }
+
+      function cargarCitas() {
+          const listaCitas = document.getElementById('listaCitas');
+          listaCitas.innerHTML = '';
+          const citas = JSON.parse(localStorage.getItem('citas')) || [];
+          const citasPendientes = citas.filter(cita => !cita.cumplida);
+
+          citasPendientes.sort((a, b) => new Date(b.fechaHora) - new Date(a.fechaHora));
+
+          citasPendientes.forEach(cita => {
+              const citaElement = document.createElement('div');
+              citaElement.className = 'bg-white/10 p-4 rounded-md mb-4';
+              citaElement.innerHTML = `
+                  <h3 class="text-lg font-semibold mb-2">Cita para ${cita.nombreMascota}</h3>
+                  <p><strong>Dueño:</strong> ${cita.nombreDueno}</p>
+                  <p><strong>Teléfono:</strong>  ${cita.telefono}</p>
+                  <p><strong>Email:</strong>  ${cita.email}</p>
+                  <p><strong>Raza:</strong>  ${cita.raza}</p>
+                  <p><strong>Color:</strong>  ${cita.color}</p>
+                  <p><strong>Alérgico:</strong>  ${cita.alergico}</p>
+                  <p><strong>Atención Especial:</strong>  ${cita.atencionEspecial}</p>
+                  <p><strong>Servicio:</strong>  ${cita.servicio}</p>
+                  <p><strong>Fecha y Hora:</strong>  ${cita.fechaHora}</p>
+                  <p><strong>Observaciones:</strong>  ${cita.observaciones}</p>
+                  <div class="mt-4 flex space-x-2">
+                      <button class="borrarCita px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600" data-id="${cita.id}">Borrar Cita</button>
+                      <button class="cumplirCita px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600" data-id="${cita.id}">Marcar como Cumplida</button>
+                  </div>
+              `;
+              listaCitas.insertBefore(citaElement, listaCitas.firstChild);
+          });
+
+          // Agregar event listeners para los nuevos botones
+          document.querySelectorAll('.borrarCita').forEach(button => {
+              button.addEventListener('click', function() {
+                  const id = this.getAttribute('data-id');
+                  if (confirm('¿Está seguro de que desea borrar esta cita?')) {
+                      borrarCita(id);
+                  }
+              });
+          });
+
+          document.querySelectorAll('.cumplirCita').forEach(button => {
+              button.addEventListener('click', function() {
+                  const id = this.getAttribute('data-id');
+                  cumplirCita(id);
+              });
+          });
+      }
+
+      function borrarCita(id) {
+          let citas = JSON.parse(localStorage.getItem('citas')) || [];
+          citas = citas.filter(cita => cita.id !== parseInt(id));
+          localStorage.setItem('citas', JSON.stringify(citas));
+          cargarCitas();
+      }
+
+      function cumplirCita(id) {
+          let citas = JSON.parse(localStorage.getItem('citas')) || [];
+          const citaIndex = citas.findIndex(cita => cita.id === parseInt(id));
+          if (citaIndex !== -1) {
+              citas[citaIndex].cumplida = true;
+              localStorage.setItem('citas', JSON.stringify(citas));
+              cargarCitas();
+              mostrarVista('citasCumplidas');
+          }
+      }
+
+      function cargarCitasCumplidas() {
+          const listaCitasCumplidas = document.getElementById('listaCitasCumplidas');
+          listaCitasCumplidas.innerHTML = '';
+          const citas = JSON.parse(localStorage.getItem('citas')) || [];
+          const citasCumplidas = citas.filter(cita => cita.cumplida);
+
+          citasCumplidas.forEach(cita => {
+              const citaElement = document.createElement('div');
+              citaElement.className = 'bg-white/10 p-4 rounded-md mb-4';
+              citaElement.innerHTML = `
+                  <h3 class="text-lg font-semibold mb-2">Cita para ${cita.nombreMascota}</h3>
+                  <p><strong>Dueño:</strong> ${cita.nombreDueno}</p>
+                  <p><strong>Teléfono:</strong> ${cita.telefono}</p>
+                  <p><strong>Email:</strong> ${cita.email}</p>
+                  <p><strong>Raza:</strong> ${cita.raza}</p>
+                  <p><strong>Color:</strong> ${cita.color}</p>
+                  <p><strong>Alérgico:</strong> ${cita.alergico}</p>
+                  <p><strong>Atención Especial:</strong> ${cita.atencionEspecial}</p>
+                  <p><strong>Servicio:</strong> ${cita.servicio}</p>
+                  <p><strong>Fecha y Hora:</strong> ${cita.fechaHora}</p>
+                  <p><strong>Observaciones:</strong> ${cita.observaciones}</p>
+                  <div class="mt-4 flex space-x-2">
+                      <button class="borrarCitaCumplida px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600" data-id="${cita.id}">Borrar Cita</button>
+                  </div>
+              `;
+              listaCitasCumplidas.appendChild(citaElement);
+          });
+
+          // Agregar event listeners para los botones de borrar
+          document.querySelectorAll('.borrarCitaCumplida').forEach(button => {
+              button.addEventListener('click', function() {
+                  const id = this.getAttribute('data-id');
+                  if (confirm('¿Está seguro de que desea borrar esta cita cumplida?')) {
+                      borrarCitaCumplida(id);
+                  }
+              });
+          });
+      }
+
+      function borrarCitaCumplida(id) {
+          let citas = JSON.parse(localStorage.getItem('citas')) || [];
+          citas = citas.filter(cita => cita.id !== parseInt(id));
+          localStorage.setItem('citas', JSON.stringify(citas));
+          cargarCitasCumplidas();
+      }
+
+      function cargarCalendario() {
+          const citas = JSON.parse(localStorage.getItem('citas')) || [];
+          const citasPendientes = citas.filter(cita => !cita.cumplida);
+          const eventos = citasPendientes.map(cita => ({
+              title: `${cita.nombreMascota} - ${cita.servicio}`,
+              start: cita.fechaHora,
+              cita: cita
+          }));
+
+          flatpickr("#calendarioCitas", {
+              inline: true,
+              mode: "single",
+              dateFormat: "Y-m-d",
+              locale: "es",
+              onDayCreate: function(dObj, dStr, fp, dayElem) {
+                  const fecha = dayElem.dateObj.toISOString().split('T')[0];
+                  const citasDelDia = eventos.filter(evento => evento.start.startsWith(fecha));
+                  if (citasDelDia.length > 0) {
+                      dayElem.classList.add('has-cita');
+                  }
+              },
+              onChange: function(selectedDates, dateStr, instance) {
+                  mostrarCitasDelDia(dateStr, eventos);
+              }
+          });
+      }
+
+      function mostrarCitasDelDia(fecha, eventos) {
+          const listaCitasDelDia = document.getElementById('listaCitasDelDia');
+          listaCitasDelDia.innerHTML = '';
+          const citasDelDia = eventos.filter(evento => evento.start.startsWith(fecha));
+
+          if (citasDelDia.length === 0) {
+              listaCitasDelDia.innerHTML = '<p class="text-white">No hay citas para este día.</p>';
+              return;
+          }
+
+          citasDelDia.sort((a, b) => new Date(a.start) - new Date(b.start));
+
+          citasDelDia.forEach(evento => {
+              const citaElement = document.createElement('div');
+              citaElement.className = 'bg-white/20 p-2 rounded-md';
+              const hora = new Date(evento.cita.fechaHora).toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+              citaElement.innerHTML = `
+                  <p class="font-semibold">${evento.cita.nombreMascota}</p>
+                  <p class="text-sm">${hora}</p>
+              `;
+              listaCitasDelDia.appendChild(citaElement);
+          });
+      }
+
+      document.getElementById('agendar').addEventListener('click', function() {
+          const nombreDueno = document.getElementById('nombreDueno').value;
+          const telefono = document.getElementById('telefono').value;
+          const email = document.getElementById('email').value;
+          const nombreMascota = document.getElementById('nombreMascota').value;
+          const raza = document.getElementById('raza').value;
+          const color = document.getElementById('color').value;
+          const alergico = document.getElementById('alergico').value;
+          const atencionEspecial = document.getElementById('atencionEspecial').value;
+          const servicio = document.getElementById('servicio').value;
+          const fechaHora = document.getElementById('fechaHora').value;
+          const observaciones = document.getElementById('observaciones').value;
+
+          if (nombreDueno && telefono && email && nombreMascota && raza && color && alergico && atencionEspecial && servicio && fechaHora) {
+              const cita = {
+                  id: Date.now(),
+                  nombreDueno,
+                  telefono,
+                  email,
+                  nombreMascota,
+                  raza,
+                  color,
+                  alergico,
+                  atencionEspecial,
+                  servicio,
+                  fechaHora,
+                  observaciones,
+                  cumplida: false
+              };
+
+              let citas = JSON.parse(localStorage.getItem('citas')) || [];
+              citas.push(cita);
+              localStorage.setItem('citas', JSON.stringify(citas));
+
+              document.getElementById('citaForm').reset();
+              mostrarVista('resumen');
+          } else {
+              alert('Por favor, complete todos los campos del formulario.');
+          }
+      });
+
+      document.getElementById('limpiar').addEventListener('click', function() {
+          document.getElementById('citaForm').reset();
+      });
+
+      document.getElementById('irFormulario').addEventListener('click', () => mostrarVista('formulario'));
+      document.getElementById('irResumen').addEventListener('click', () => mostrarVista('resumen'));
+      document.getElementById('irCalendario').addEventListener('click', () => mostrarVista('calendario'));
+      document.getElementById('irCitasCumplidas').addEventListener('click', () => mostrarVista('citasCumplidas'));
+
+      // Cargar la vista correcta al inicio
+      if (JSON.parse(localStorage.getItem('citas'))?.length > 0) {
+          mostrarVista('resumen');
+      } else {
+          mostrarVista('formulario');
+      }
+  </script>
+</body>
+</html>
